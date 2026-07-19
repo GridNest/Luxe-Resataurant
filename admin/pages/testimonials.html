@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUXE Admin - Testimonials</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body class="bg-[#0b0a0a] text-[#f0ece4] min-h-screen flex">
+  <aside class="w-64 bg-[#111] border-r border-white/10 flex flex-col fixed h-full z-30">
+    <div class="p-6 border-b border-white/10">
+      <h1 class="text-2xl font-bold gold tracking-widest">LUXE</h1>
+      <p class="text-white/40 text-xs mt-1">Admin Panel</p>
+    </div>
+    <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+      <a href="../dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📊</span> Dashboard</a>
+      <a href="hero.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🖼️</span> Hero Section</a>
+      <a href="about.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📖</span> About</a>
+      <a href="categories.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📂</span> Categories</a>
+      <a href="menu.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🍽️</span> Menu Items</a>
+      <a href="gallery.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🖼️</span> Gallery</a>
+      <a href="testimonials.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm"><span>💬</span> Testimonials</a>
+      <a href="contact.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📞</span> Contact</a>
+      <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>⚙️</span> Settings</a>
+    </nav>
+    <div class="p-4 border-t border-white/10">
+      <button id="logoutBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/50 hover:bg-red-500/10 hover:text-red-400 transition text-sm"><span>🚪</span> Logout</button>
+    </div>
+  </aside>
+
+  <main class="flex-1 ml-64 p-8">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-semibold">Testimonials</h2>
+        <p class="text-white/40 text-sm mt-1">Manage customer reviews</p>
+      </div>
+      <button onclick="openModal()" class="btn-gold px-4 py-2 rounded-lg text-sm">+ Add Testimonial</button>
+    </div>
+
+    <div class="glass rounded-xl overflow-hidden">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Rating</th>
+              <th>Review</th>
+              <th>Order</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="testimonialsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="flex items-center justify-between mb-6">
+        <h3 id="modalTitle" class="text-lg font-semibold">Add Testimonial</h3>
+        <button onclick="closeModal()" class="text-white/50 hover:text-white text-xl">&times;</button>
+      </div>
+      <form id="testimonialForm" class="space-y-4">
+        <input type="hidden" id="testimonialId" />
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Customer Name</label>
+          <input type="text" id="customerName" placeholder="John Doe" required />
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Rating (1-5)</label>
+          <input type="number" id="rating" min="1" max="5" value="5" required />
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Review</label>
+          <textarea id="review" rows="3" placeholder="Customer review..." required></textarea>
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Display Order</label>
+          <input type="number" id="testimonialOrder" value="0" min="0" />
+        </div>
+        <div class="flex gap-3">
+          <button type="submit" class="btn-gold px-6 py-2 rounded-lg text-sm">Save</button>
+          <button type="button" onclick="closeModal()" class="bg-white/5 hover:bg-white/10 px-6 py-2 rounded-lg text-sm transition">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script>
+    checkAuth();
+
+    let testimonials = [];
+
+    async function loadTestimonials() {
+      testimonials = await apiFetch('/testimonials');
+      renderTable();
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('testimonialsTable');
+      tbody.innerHTML = (testimonials || []).map(t => {
+        const stars = '\u2605'.repeat(t.rating) + '\u2606'.repeat(5 - t.rating);
+        return `
+          <tr>
+            <td class="font-medium">${t.customerName}</td>
+            <td class="gold">${stars}</td>
+            <td class="text-white/60 max-w-xs truncate">${t.review}</td>
+            <td>${t.displayOrder || 0}</td>
+            <td>
+              <button onclick="editTestimonial('${t._id}')" class="text-white/50 hover:text-white text-sm mr-3">Edit</button>
+              <button onclick="deleteTestimonial('${t._id}')" class="text-red-400 hover:text-red-300 text-sm">Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openModal(id = null) {
+      document.getElementById('modal').classList.remove('hidden');
+      document.getElementById('modalTitle').textContent = id ? 'Edit Testimonial' : 'Add Testimonial';
+      document.getElementById('testimonialId').value = id || '';
+      if (id) {
+        const t = testimonials.find(t => t._id === id);
+        if (t) {
+          document.getElementById('customerName').value = t.customerName;
+          document.getElementById('rating').value = t.rating;
+          document.getElementById('review').value = t.review;
+          document.getElementById('testimonialOrder').value = t.displayOrder || 0;
+        }
+      } else {
+        document.getElementById('testimonialForm').reset();
+        document.getElementById('rating').value = 5;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.add('hidden');
+    }
+
+    function editTestimonial(id) {
+      openModal(id);
+    }
+
+    document.getElementById('testimonialForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('testimonialId').value;
+      const body = {
+        customerName: document.getElementById('customerName').value,
+        rating: parseInt(document.getElementById('rating').value),
+        review: document.getElementById('review').value,
+        displayOrder: parseInt(document.getElementById('testimonialOrder').value)
+      };
+
+      try {
+        if (id) {
+          await apiPut(`/testimonials/${id}`, body);
+          showToast('Testimonial updated successfully');
+        } else {
+          await apiPost('/testimonials', body);
+          showToast('Testimonial created successfully');
+        }
+        closeModal();
+        loadTestimonials();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    });
+
+    async function deleteTestimonial(id) {
+      if (!confirm('Are you sure you want to delete this testimonial?')) return;
+      try {
+        await apiDelete(`/testimonials/${id}`);
+        showToast('Testimonial deleted successfully');
+        loadTestimonials();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    loadTestimonials();
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await apiPost('/auth/logout');
+      localStorage.removeItem('token');
+      localStorage.removeItem('admin');
+      window.location.href = '../index.html';
+    });
+  </script>
+</body>
+</html>

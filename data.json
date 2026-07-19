@@ -1,0 +1,63 @@
+{
+  "restaurantName": "LUXE",
+  "hero": {
+    "title": "Culinary Artistry",
+    "subtitle": "Where tradition meets innovation — a Michelin-inspired journey.",
+    "bgImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80",
+    "exploreLabel": "Explore Menu"
+  },
+  "menu": {
+    "categories": ["Starter", "Soup", "Pizza", "Burger", "Indian", "Chinese", "Dessert", "Drinks"],
+    "items": [
+      { "category": "Starter", "name": "Truffle Arancini", "description": "Crispy risotto balls, mozzarella, black truffle", "price": 22, "veg": true, "popular": true, "image": "https://images.unsplash.com/photo-1541014741259-de529411b96a?w=400&q=80" },
+      { "category": "Starter", "name": "Beef Carpaccio", "description": "Aged beef, arugula, parmesan, lemon", "price": 28, "veg": false, "popular": false, "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" },
+      { "category": "Soup", "name": "Lobster Bisque", "description": "Velvety shellfish broth, cognac, crème fraîche", "price": 24, "veg": false, "popular": true, "image": "https://images.unsplash.com/photo-1584812080170-4cd12975d95a?w=400&q=80" },
+      { "category": "Soup", "name": "Tomato & Basil", "description": "Heirloom tomato, basil oil, croutons", "price": 16, "veg": true, "popular": false, "image": "https://images.unsplash.com/photo-1574484284002-1b16c5df6ee3?w=400&q=80" },
+      { "category": "Pizza", "name": "Margherita", "description": "San Marzano, fior di latte, basil", "price": 19, "veg": true, "popular": true, "image": "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400&q=80" },
+      { "category": "Pizza", "name": "Diavola", "description": "Spicy salami, black olives, chili", "price": 22, "veg": false, "popular": false, "image": "https://images.unsplash.com/photo-1595853035070-59a39fe84de3?w=400&q=80" },
+      { "category": "Burger", "name": "Wagyu Burger", "description": "A5 wagyu, cheddar, caramelized onion", "price": 32, "veg": false, "popular": true, "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80" },
+      { "category": "Burger", "name": "Plant-Based Deluxe", "description": "Beyond meat, vegan cheese, avocado", "price": 24, "veg": true, "popular": false, "image": "https://images.unsplash.com/photo-1550317138-10000687a72b?w=400&q=80" },
+      { "category": "Indian", "name": "Butter Chicken", "description": "Tandoori chicken, tomato gravy, fenugreek", "price": 26, "veg": false, "popular": true, "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&q=80" },
+      { "category": "Indian", "name": "Paneer Tikka", "description": "Cottage cheese, bell peppers, mint chutney", "price": 20, "veg": true, "popular": false, "image": "https://images.unsplash.com/photo-1567186937675-a5138c8c89b3?w=400&q=80" },
+      { "category": "Chinese", "name": "Sichuan Noodles", "description": "Hand-pulled noodles, chili oil, ground pork", "price": 21, "veg": false, "popular": false, "image": "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=400&q=80" },
+      { "category": "Chinese", "name": "Dim Sum Platter", "description": "Steamed dumplings, soy-ginger dip", "price": 25, "veg": true, "popular": true, "image": "https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=400&q=80" },
+      { "category": "Dessert", "name": "Chocolate Fondant", "description": "Molten dark chocolate, vanilla ice cream", "price": 14, "veg": true, "popular": true, "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80" },
+      { "category": "Dessert", "name": "Tiramisu", "description": "Coffee-soaked ladyfingers, mascarpone", "price": 13, "veg": true, "popular": false, "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&q=80" },
+      { "category": "Drinks", "name": "Espresso Martini", "description": "Vodka, espresso, coffee liqueur", "price": 16, "veg": true, "popular": false, "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80" },
+      { "category": "Drinks", "name": "Fresh Mint Lemonade", "description": "Muddled mint, lemon, soda", "price": 9, "veg": true, "popular": false, "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80" }
+    ]
+  },
+  "about": {
+    "story": "Established in 2022, LUXE is a sanctuary of contemporary gastronomy. Our kitchen marries classic techniques with bold global flavors, using only the finest seasonal ingredients. Every dish tells a story of craftsmanship and passion.",
+    "chefImage": "https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=600&q=80",
+    "experience": "12+ years",
+    "freshIngredients": "100% farm-to-table",
+    "luxuryDining": "Michelin-starred service"
+  },
+  "gallery": [
+    "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&q=80",
+    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80",
+    "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80",
+    "https://images.unsplash.com/photo-1547919307-1b3149f6be7c?w=400&q=80",
+    "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=400&q=80",
+    "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400&q=80"
+  ],
+  "testimonials": [
+    { "name": "Elena V.", "rating": 5, "text": "An unforgettable dining experience. The truffle arancini and the service were impeccable." },
+    { "name": "Marcus T.", "rating": 5, "text": "The wagyu burger is simply the best. LUXE redefines luxury dining." },
+    { "name": "Sophia L.", "rating": 4, "text": "Beautiful ambiance, creative dishes. Will come back for the dim sum!" }
+  ],
+  "contact": {
+    "phone": "+1 (212) 555-0199",
+    "email": "reservations@luxe.restaurant",
+    "address": "101 Park Ave, New York, NY 10022",
+    "hours": "Mon–Sun: 5:00 PM – 11:00 PM",
+    "mapPlaceholder": "https://maps.google.com/maps?q=101+Park+Ave+New+York&t=&z=13&ie=UTF8&iwloc=&output=embed"
+  },
+  "social": {
+    "instagram": "#",
+    "facebook": "#",
+    "twitter": "#",
+    "youtube": "#"
+  }
+}

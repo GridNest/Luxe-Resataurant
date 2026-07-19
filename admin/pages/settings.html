@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUXE Admin - Settings</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body class="bg-[#0b0a0a] text-[#f0ece4] min-h-screen flex">
+  <aside class="w-64 bg-[#111] border-r border-white/10 flex flex-col fixed h-full z-30">
+    <div class="p-6 border-b border-white/10">
+      <h1 class="text-2xl font-bold gold tracking-widest">LUXE</h1>
+      <p class="text-white/40 text-xs mt-1">Admin Panel</p>
+    </div>
+    <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+      <a href="../dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📊</span> Dashboard</a>
+      <a href="hero.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🖼️</span> Hero Section</a>
+      <a href="about.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📖</span> About</a>
+      <a href="categories.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📂</span> Categories</a>
+      <a href="menu.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🍽️</span> Menu Items</a>
+      <a href="gallery.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🖼️</span> Gallery</a>
+      <a href="testimonials.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>💬</span> Testimonials</a>
+      <a href="contact.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📞</span> Contact</a>
+      <a href="settings.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm"><span>⚙️</span> Settings</a>
+    </nav>
+    <div class="p-4 border-t border-white/10">
+      <button id="logoutBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/50 hover:bg-red-500/10 hover:text-red-400 transition text-sm"><span>🚪</span> Logout</button>
+    </div>
+  </aside>
+
+  <main class="flex-1 ml-64 p-8">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-semibold">Settings</h2>
+        <p class="text-white/40 text-sm mt-1">Manage site settings and SEO</p>
+      </div>
+      <a href="../dashboard.html" class="text-sm text-white/50 hover:text-white transition">← Back to Dashboard</a>
+    </div>
+
+    <div class="space-y-6">
+      <!-- General Settings -->
+      <div class="glass rounded-xl p-6">
+        <h3 class="text-lg font-semibold mb-4">General</h3>
+        <form id="settingsForm" class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm text-white/60 mb-1">Business Name</label>
+              <input type="text" id="businessName" />
+            </div>
+            <div>
+              <label class="block text-sm text-white/60 mb-1">Copyright Text</label>
+              <input type="text" id="copyright" />
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm text-white/60 mb-1">Business Email</label>
+              <input type="email" id="businessEmail" />
+            </div>
+            <div>
+              <label class="block text-sm text-white/60 mb-1">Business Phone</label>
+              <input type="text" id="businessPhone" />
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm text-white/60 mb-1">Logo URL</label>
+              <input type="text" id="logo" placeholder="/uploads/logo.png" />
+            </div>
+            <div>
+              <label class="block text-sm text-white/60 mb-1">Upload Logo File</label>
+              <input type="file" id="logoFile" accept="image/*" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-600 transition" />
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm text-white/60 mb-1">Favicon URL</label>
+              <input type="text" id="favicon" placeholder="/uploads/favicon.ico" />
+            </div>
+            <div>
+              <label class="block text-sm text-white/60 mb-1">Upload Favicon File</label>
+              <input type="file" id="faviconFile" accept="image/*" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-600 transition" />
+            </div>
+          </div>
+          <button type="submit" class="btn-gold px-6 py-3 rounded-lg text-sm uppercase tracking-wider">Save General Settings</button>
+        </form>
+      </div>
+
+      <!-- SEO Settings -->
+      <div class="glass rounded-xl p-6">
+        <h3 class="text-lg font-semibold mb-4">SEO</h3>
+        <form id="seoForm" class="space-y-4">
+          <div>
+            <label class="block text-sm text-white/60 mb-1">Meta Title</label>
+            <input type="text" id="metaTitle" />
+          </div>
+          <div>
+            <label class="block text-sm text-white/60 mb-1">Meta Description</label>
+            <textarea id="metaDescription" rows="2"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm text-white/60 mb-1">Keywords</label>
+            <input type="text" id="keywords" placeholder="fine dining, restaurant, gourmet" />
+          </div>
+          <button type="submit" class="btn-gold px-6 py-3 rounded-lg text-sm uppercase tracking-wider">Save SEO Settings</button>
+        </form>
+      </div>
+
+      <!-- Change Password -->
+      <div class="glass rounded-xl p-6">
+        <h3 class="text-lg font-semibold mb-4">Change Password</h3>
+        <form id="passwordForm" class="space-y-4 max-w-md">
+          <div>
+            <label class="block text-sm text-white/60 mb-1">Current Password</label>
+            <input type="password" id="currentPassword" required />
+          </div>
+          <div>
+            <label class="block text-sm text-white/60 mb-1">New Password</label>
+            <input type="password" id="newPassword" minlength="6" required />
+          </div>
+          <button type="submit" class="btn-gold px-6 py-3 rounded-lg text-sm uppercase tracking-wider">Update Password</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script>
+    checkAuth();
+
+    async function loadSettings() {
+      const data = await apiFetch('/settings');
+      if (data) {
+        document.getElementById('businessName').value = data.businessName || '';
+        document.getElementById('copyright').value = data.copyright || '';
+        document.getElementById('businessEmail').value = data.businessEmail || '';
+        document.getElementById('businessPhone').value = data.businessPhone || '';
+        document.getElementById('logo').value = data.logo || '';
+        document.getElementById('favicon').value = data.favicon || '';
+        document.getElementById('metaTitle').value = data.metaTitle || '';
+        document.getElementById('metaDescription').value = data.metaDescription || '';
+        document.getElementById('keywords').value = data.keywords || '';
+      }
+    }
+
+    document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const logoFile = document.getElementById('logoFile');
+      const faviconFile = document.getElementById('faviconFile');
+
+      if (logoFile.files.length > 0 || faviconFile.files.length > 0) {
+        const formData = new FormData();
+        formData.append('businessName', document.getElementById('businessName').value);
+        formData.append('copyright', document.getElementById('copyright').value);
+        formData.append('businessEmail', document.getElementById('businessEmail').value);
+        formData.append('businessPhone', document.getElementById('businessPhone').value);
+        formData.append('logo', document.getElementById('logo').value);
+        formData.append('favicon', document.getElementById('favicon').value);
+
+        if (logoFile.files.length > 0) {
+          formData.append('logo', logoFile.files[0]);
+        }
+        if (faviconFile.files.length > 0) {
+          formData.append('favicon', faviconFile.files[0]);
+        }
+
+        try {
+          await apiUpload('/settings', formData, 'PUT');
+          showToast('General settings updated successfully');
+          loadSettings();
+          logoFile.value = '';
+          faviconFile.value = '';
+        } catch (err) {
+          showToast(err.message, 'error');
+        }
+      } else {
+        try {
+          await apiPut('/settings', {
+            businessName: document.getElementById('businessName').value,
+            copyright: document.getElementById('copyright').value,
+            businessEmail: document.getElementById('businessEmail').value,
+            businessPhone: document.getElementById('businessPhone').value,
+            logo: document.getElementById('logo').value,
+            favicon: document.getElementById('favicon').value
+          });
+          showToast('General settings updated successfully');
+          loadSettings();
+        } catch (err) {
+          showToast(err.message, 'error');
+        }
+      }
+    });
+
+    document.getElementById('seoForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await apiPut('/settings', {
+          metaTitle: document.getElementById('metaTitle').value,
+          metaDescription: document.getElementById('metaDescription').value,
+          keywords: document.getElementById('keywords').value
+        });
+        showToast('SEO settings updated successfully');
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    });
+
+    document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await apiPut('/auth/change-password', {
+          currentPassword: document.getElementById('currentPassword').value,
+          newPassword: document.getElementById('newPassword').value
+        });
+        showToast('Password updated successfully');
+        document.getElementById('passwordForm').reset();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    });
+
+    loadSettings();
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await apiPost('/auth/logout');
+      localStorage.removeItem('token');
+      localStorage.removeItem('admin');
+      window.location.href = '../index.html';
+    });
+  </script>
+</body>
+</html>

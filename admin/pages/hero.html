@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUXE Admin - Hero Section</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body class="bg-[#0b0a0a] text-[#f0ece4] min-h-screen flex">
+  <aside class="w-64 bg-[#111] border-r border-white/10 flex flex-col fixed h-full z-30">
+    <div class="p-6 border-b border-white/10">
+      <h1 class="text-2xl font-bold gold tracking-widest">LUXE</h1>
+      <p class="text-white/40 text-xs mt-1">Admin Panel</p>
+    </div>
+    <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+      <a href="../dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📊</span> Dashboard</a>
+      <a href="hero.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm"><span>🖼️</span> Hero Section</a>
+      <a href="about.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📖</span> About</a>
+      <a href="categories.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📂</span> Categories</a>
+      <a href="menu.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🍽️</span> Menu Items</a>
+      <a href="gallery.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🖼️</span> Gallery</a>
+      <a href="testimonials.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>💬</span> Testimonials</a>
+      <a href="contact.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📞</span> Contact</a>
+      <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>⚙️</span> Settings</a>
+    </nav>
+    <div class="p-4 border-t border-white/10">
+      <button id="logoutBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/50 hover:bg-red-500/10 hover:text-red-400 transition text-sm"><span>🚪</span> Logout</button>
+    </div>
+  </aside>
+
+  <main class="flex-1 ml-64 p-8">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-semibold">Hero Section</h2>
+        <p class="text-white/40 text-sm mt-1">Manage the hero banner content</p>
+      </div>
+      <a href="../dashboard.html" class="text-sm text-white/50 hover:text-white transition">← Back to Dashboard</a>
+    </div>
+
+    <div class="glass rounded-xl p-6 max-w-2xl">
+      <form id="heroForm" class="space-y-5">
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Title</label>
+          <input type="text" id="title" placeholder="Culinary Artistry" />
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Subtitle</label>
+          <textarea id="subtitle" rows="2" placeholder="Where tradition meets innovation..."></textarea>
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Button Text</label>
+          <input type="text" id="buttonText" placeholder="Explore Menu" />
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Button Link</label>
+          <input type="text" id="buttonLink" placeholder="#menu" />
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Background Image URL</label>
+          <input type="text" id="backgroundImage" placeholder="https://..." />
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Or Upload Background Image File</label>
+          <input type="file" id="backgroundImageFile" accept="image/*" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-600 transition" />
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Overlay Opacity (0-1)</label>
+          <input type="number" id="overlayOpacity" min="0" max="1" step="0.1" value="0.4" />
+        </div>
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="status" checked class="w-4 h-4 accent-yellow-600" />
+          <label for="status" class="text-sm text-white/60">Active</label>
+        </div>
+        <button type="submit" class="btn-gold px-6 py-3 rounded-lg text-sm uppercase tracking-wider">Save Changes</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script>
+    checkAuth();
+
+    async function loadHero() {
+      const data = await apiFetch('/hero');
+      if (data) {
+        document.getElementById('title').value = data.title || '';
+        document.getElementById('subtitle').value = data.subtitle || '';
+        document.getElementById('buttonText').value = data.buttonText || '';
+        document.getElementById('buttonLink').value = data.buttonLink || '';
+        document.getElementById('backgroundImage').value = data.backgroundImage || '';
+        document.getElementById('overlayOpacity').value = data.overlayOpacity || 0.4;
+        document.getElementById('status').checked = data.status !== false;
+      }
+    }
+
+    document.getElementById('heroForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('backgroundImageFile');
+
+      if (fileInput.files.length > 0) {
+        const formData = new FormData();
+        formData.append('backgroundImage', fileInput.files[0]);
+        formData.append('title', document.getElementById('title').value);
+        formData.append('subtitle', document.getElementById('subtitle').value);
+        formData.append('buttonText', document.getElementById('buttonText').value);
+        formData.append('buttonLink', document.getElementById('buttonLink').value);
+        formData.append('overlayOpacity', parseFloat(document.getElementById('overlayOpacity').value));
+        formData.append('status', document.getElementById('status').checked);
+
+        try {
+          await apiUpload('/hero', formData, 'PUT');
+          showToast('Hero section updated successfully');
+          loadHero();
+          fileInput.value = '';
+        } catch (err) {
+          showToast(err.message, 'error');
+        }
+      } else {
+        try {
+          await apiPut('/hero', {
+            title: document.getElementById('title').value,
+            subtitle: document.getElementById('subtitle').value,
+            buttonText: document.getElementById('buttonText').value,
+            buttonLink: document.getElementById('buttonLink').value,
+            backgroundImage: document.getElementById('backgroundImage').value,
+            overlayOpacity: parseFloat(document.getElementById('overlayOpacity').value),
+            status: document.getElementById('status').checked
+          });
+          showToast('Hero section updated successfully');
+          loadHero();
+        } catch (err) {
+          showToast(err.message, 'error');
+        }
+      }
+    });
+
+    loadHero();
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await apiPost('/auth/logout');
+      localStorage.removeItem('token');
+      localStorage.removeItem('admin');
+      window.location.href = '../index.html';
+    });
+  </script>
+</body>
+</html>

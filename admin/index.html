@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUXE Admin - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0b0a0a; color: #f0ece4; }
+    .gold { color: #c9a96e; }
+    .bg-gold { background-color: #c9a96e; }
+    .btn-gold { background: #c9a96e; color: #0b0a0a; font-weight: 600; transition: all 0.25s ease; }
+    .btn-gold:hover { background: #dfc28a; transform: scale(1.02); }
+    .glass { background: rgba(20, 18, 18, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(201, 169, 110, 0.15); }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+  <div class="w-full max-w-md">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold gold tracking-widest">LUXE</h1>
+      <p class="text-white/50 mt-2">Admin Panel</p>
+    </div>
+
+    <div class="glass rounded-2xl p-8">
+      <h2 class="text-xl font-semibold mb-6">Sign In</h2>
+
+      <div id="errorMsg" class="hidden bg-red-500/20 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg mb-4"></div>
+
+      <form id="loginForm" class="space-y-5">
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Email</label>
+          <input type="email" id="email" required
+            class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-yellow-600 transition"
+            placeholder="admin@restaurant.com" />
+        </div>
+        <div>
+          <label class="block text-sm text-white/60 mb-1">Password</label>
+          <input type="password" id="password" required
+            class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-yellow-600 transition"
+            placeholder="Enter password" />
+        </div>
+        <button type="submit" id="loginBtn"
+          class="w-full btn-gold py-3 rounded-lg text-sm uppercase tracking-wider">
+          Sign In
+        </button>
+      </form>
+
+      <p class="text-center text-white/30 text-xs mt-6">Default: admin@restaurant.com / Admin@123</p>
+    </div>
+  </div>
+
+  <script>
+    const API = 'http://localhost:5000/api';
+
+    if (localStorage.getItem('token')) {
+      window.location.href = 'dashboard.html';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const errDiv = document.getElementById('errorMsg');
+
+      btn.textContent = 'Signing in...';
+      btn.disabled = true;
+      errDiv.classList.add('hidden');
+
+      try {
+        const res = await fetch(`${API}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.message || 'Login failed');
+
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('admin', JSON.stringify(data.data.admin));
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        errDiv.textContent = err.message;
+        errDiv.classList.remove('hidden');
+      } finally {
+        btn.textContent = 'Sign In';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
