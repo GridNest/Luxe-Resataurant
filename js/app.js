@@ -1,7 +1,8 @@
 (function () {
   "use strict";
 
-  const API_BASE = "http://localhost:5000/api";
+  const BACKEND_URL = "https://luxe-restaurant-backend.onrender.com";
+  const API_BASE = `${BACKEND_URL}/api`;
 
   function $(sel) {
     return document.querySelector(sel);
@@ -25,7 +26,7 @@
       return url;
     }
     const cleanUrl = url.startsWith("/") ? url : `/${url}`;
-    return `http://localhost:5000${cleanUrl}`;
+    return `${BACKEND_URL}${cleanUrl}`;
   }
 
   async function loadData() {

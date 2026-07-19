@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = const API_BASE = 'https://luxe-restaurant-backend.onrender.com/api';
 
 function getToken() {
   return localStorage.getItem('token');
