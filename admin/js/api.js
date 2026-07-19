@@ -6,9 +6,9 @@ function getToken() {
 
 function redirectToLogin() {
   if (window.location.pathname.includes('/pages/')) {
-    window.location.href = '../index.html';
+    window.location.href = '/admin/index.html';
   } else {
-    window.location.href = 'index.html';
+    window.location.href = '/admin/index.html';
   }
 }
 

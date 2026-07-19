@@ -55,7 +55,7 @@
     const API = 'https://luxe-restaurant-backend.onrender.com/api';
 
     if (localStorage.getItem('token')) {
-      window.location.href = 'dashboard.html';
+      window.location.href = '/admin/dashboard.html';
     }
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -83,7 +83,7 @@
 
         localStorage.setItem('token', data.token);
         localStorage.setItem('admin', JSON.stringify(data.data.admin));
-        window.location.href = 'dashboard.html';
+        window.location.href = '/admin/dashboard.html';
       } catch (err) {
         errDiv.textContent = err.message;
         errDiv.classList.remove('hidden');
