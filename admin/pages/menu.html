@@ -7,6 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/admin.css" />
+  <style>
+    .img-preview { max-width: 200px; max-height: 150px; border-radius: 8px; object-fit: cover; border: 2px solid rgba(201,169,110,0.3); }
+    .img-preview-container { position: relative; display: inline-block; }
+    .img-preview-remove { position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+    .img-preview-remove:hover { background: #dc2626; }
+  </style>
 </head>
 <body class="bg-[#0b0a0a] text-[#f0ece4] min-h-screen flex">
   <aside class="w-64 bg-[#111] border-r border-white/10 flex flex-col fixed h-full z-30">
@@ -15,18 +21,18 @@
       <p class="text-white/40 text-xs mt-1">Admin Panel</p>
     </div>
     <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
-      <a href="../dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📊</span> Dashboard</a>
-      <a href="hero.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🖼️</span> Hero Section</a>
-      <a href="about.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📖</span> About</a>
-      <a href="categories.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📂</span> Categories</a>
-      <a href="menu.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm"><span>🍽️</span> Menu Items</a>
-      <a href="gallery.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🖼️</span> Gallery</a>
-      <a href="testimonials.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>💬</span> Testimonials</a>
-      <a href="contact.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📞</span> Contact</a>
-      <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>⚙️</span> Settings</a>
+      <a href="../dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F4CA;</span> Dashboard</a>
+      <a href="hero.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F5BC;</span> Hero Section</a>
+      <a href="about.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F4D6;</span> About</a>
+      <a href="categories.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F4C2;</span> Categories</a>
+      <a href="menu.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm"><span>&#x1F37D;</span> Menu Items</a>
+      <a href="gallery.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F5BC;</span> Gallery</a>
+      <a href="testimonials.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F4AC;</span> Testimonials</a>
+      <a href="contact.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F4DE;</span> Contact</a>
+      <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x2699;</span> Settings</a>
     </nav>
     <div class="p-4 border-t border-white/10">
-      <button id="logoutBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/50 hover:bg-red-500/10 hover:text-red-400 transition text-sm"><span>🚪</span> Logout</button>
+      <button id="logoutBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/50 hover:bg-red-500/10 hover:text-red-400 transition text-sm"><span>&#x1F6AA;</span> Logout</button>
     </div>
   </aside>
 
@@ -39,7 +45,13 @@
       <button onclick="openModal()" class="btn-gold px-4 py-2 rounded-lg text-sm">+ Add Item</button>
     </div>
 
-    <div class="glass rounded-xl overflow-hidden">
+    <div id="loadingState" class="space-y-4">
+      <div class="glass rounded-xl p-4 animate-pulse" style="height:60px"></div>
+      <div class="glass rounded-xl p-4 animate-pulse" style="height:60px"></div>
+      <div class="glass rounded-xl p-4 animate-pulse" style="height:60px"></div>
+    </div>
+
+    <div id="tableContainer" class="glass rounded-xl overflow-hidden hidden">
       <div class="table-container">
         <table>
           <thead>
@@ -68,6 +80,7 @@
       </div>
       <form id="menuForm" class="space-y-4">
         <input type="hidden" id="itemId" />
+        <input type="hidden" id="removeImageFlag" value="false" />
         <div>
           <label class="block text-sm text-white/60 mb-1">Name</label>
           <input type="text" id="itemName" placeholder="Item name" required />
@@ -97,6 +110,13 @@
         <div>
           <label class="block text-sm text-white/60 mb-1">Or Upload Image File</label>
           <input type="file" id="itemImageFile" accept="image/*" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-600 transition" />
+        </div>
+        <div id="imagePreviewContainer" class="hidden">
+          <label class="block text-sm text-white/60 mb-1">Image Preview</label>
+          <div class="img-preview-container inline-block">
+            <img id="imagePreview" src="" alt="Preview" class="img-preview" />
+            <button type="button" id="removeImageBtn" class="img-preview-remove" title="Remove image">&times;</button>
+          </div>
         </div>
         <div class="flex gap-6">
           <label class="flex items-center gap-2 text-sm text-white/60">
@@ -128,6 +148,8 @@
       ]);
       menuItems = items || [];
       categories = cats || [];
+      document.getElementById('loadingState').classList.add('hidden');
+      document.getElementById('tableContainer').classList.remove('hidden');
       renderTable();
       renderCategorySelect();
     }
@@ -137,22 +159,14 @@
       select.innerHTML = categories.map(c => `<option value="${c._id}">${c.name}</option>`).join('');
     }
 
-    function getFullImageUrl(url) {
-      if (!url) return '';
-      if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
-        return url;
-      }
-      const cleanUrl = url.startsWith('/') ? url : `/${url}`;
-      return `https://luxe-restaurant-backend.onrender.com${cleanUrl}`;
-    }
-
     function renderTable() {
       const tbody = document.getElementById('menuTable');
       tbody.innerHTML = menuItems.map(item => {
         const catName = item.categoryId?.name || 'Unknown';
+        const imgUrl = getCacheBustedUrl(item.image);
         return `
           <tr>
-            <td><img src="${getFullImageUrl(item.image)}" class="w-12 h-12 rounded-lg object-cover" /></td>
+            <td><img src="${imgUrl}" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect fill="#1a1818" width="48" height="48"/><text fill="#666" font-family="sans-serif" font-size="10" x="24" y="24" text-anchor="middle">N/A</text></svg>')}'" /></td>
             <td class="font-medium">${item.name}</td>
             <td class="text-white/40">${catName}</td>
             <td class="gold">$${item.price}</td>
@@ -167,10 +181,25 @@
       }).join('');
     }
 
+    function showImagePreview(url) {
+      const container = document.getElementById('imagePreviewContainer');
+      const preview = document.getElementById('imagePreview');
+      if (url) {
+        preview.src = getCacheBustedUrl(url);
+        container.classList.remove('hidden');
+      } else {
+        container.classList.add('hidden');
+      }
+    }
+
     function openModal(id = null) {
       document.getElementById('modal').classList.remove('hidden');
       document.getElementById('modalTitle').textContent = id ? 'Edit Menu Item' : 'Add Menu Item';
       document.getElementById('itemId').value = id || '';
+      document.getElementById('removeImageFlag').value = 'false';
+      document.getElementById('imagePreviewContainer').classList.add('hidden');
+      document.getElementById('itemImageFile').value = '';
+
       if (id) {
         const item = menuItems.find(i => i._id === id);
         if (item) {
@@ -182,6 +211,7 @@
           document.getElementById('itemImage').value = item.image || '';
           document.getElementById('itemVeg').checked = item.veg;
           document.getElementById('itemPopular').checked = item.popular;
+          showImagePreview(item.image);
         }
       } else {
         document.getElementById('menuForm').reset();
@@ -190,19 +220,51 @@
 
     function closeModal() {
       document.getElementById('modal').classList.add('hidden');
+      document.getElementById('imagePreviewContainer').classList.add('hidden');
     }
 
     function editItem(id) {
       openModal(id);
     }
 
+    document.getElementById('itemImageFile').addEventListener('change', function() {
+      if (this.files.length > 0) {
+        const file = this.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          showImagePreview(e.target.result);
+        };
+        reader.readAsDataURL(file);
+        document.getElementById('itemImage').value = '';
+      }
+    });
+
+    document.getElementById('itemImage').addEventListener('input', function() {
+      if (this.value) {
+        showImagePreview(this.value);
+        document.getElementById('itemImageFile').value = '';
+      } else {
+        document.getElementById('imagePreviewContainer').classList.add('hidden');
+      }
+    });
+
+    document.getElementById('removeImageBtn').addEventListener('click', function() {
+      document.getElementById('removeImageFlag').value = 'true';
+      document.getElementById('imagePreviewContainer').classList.add('hidden');
+      document.getElementById('itemImage').value = '';
+      document.getElementById('itemImageFile').value = '';
+      showToast('Image marked for removal', 'info');
+    });
+
     document.getElementById('menuForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const id = document.getElementById('itemId').value;
       const fileInput = document.getElementById('itemImageFile');
       const imageUrlInput = document.getElementById('itemImage');
+      const removeFlag = document.getElementById('removeImageFlag').value;
 
       if (fileInput.files.length > 0) {
+        showToast('Uploading image...', 'info');
         const formData = new FormData();
         formData.append('image', fileInput.files[0]);
         formData.append('name', document.getElementById('itemName').value);
@@ -214,17 +276,28 @@
         formData.append('popular', document.getElementById('itemPopular').checked);
 
         try {
+          let result;
           if (id) {
-            await apiUpload(`/menu/${id}`, formData, 'PUT');
+            result = await apiUpload(`/menu/${id}`, formData, 'PUT');
             showToast('Menu item updated successfully');
           } else {
-            await apiUpload('/menu', formData, 'POST');
+            result = await apiUpload('/menu', formData, 'POST');
             showToast('Menu item created successfully');
           }
           closeModal();
-          loadData();
+          if (result && result.data) {
+            if (id) {
+              const idx = menuItems.findIndex(i => i._id === id);
+              if (idx !== -1) menuItems[idx] = result.data;
+            } else {
+              menuItems.push(result.data);
+            }
+          } else {
+            await loadData();
+          }
+          renderTable();
         } catch (err) {
-          showToast(err.message, 'error');
+          showToast(err.message || 'Upload failed', 'error');
         }
       } else {
         const body = {
@@ -233,23 +306,39 @@
           description: document.getElementById('itemDescription').value,
           price: parseFloat(document.getElementById('itemPrice').value),
           displayOrder: parseInt(document.getElementById('itemOrder').value),
-          image: imageUrlInput.value,
+          image: imageUrlInput.value || undefined,
           veg: document.getElementById('itemVeg').checked,
           popular: document.getElementById('itemPopular').checked
         };
 
+        if (removeFlag === 'true') {
+          body.removeImage = 'true';
+          body.image = '';
+        }
+
         try {
+          let result;
           if (id) {
-            await apiPut(`/menu/${id}`, body);
+            result = await apiPut(`/menu/${id}`, body);
             showToast('Menu item updated successfully');
           } else {
-            await apiPost('/menu', body);
+            result = await apiPost('/menu', body);
             showToast('Menu item created successfully');
           }
           closeModal();
-          loadData();
+          if (result && result.data) {
+            if (id) {
+              const idx = menuItems.findIndex(i => i._id === id);
+              if (idx !== -1) menuItems[idx] = result.data;
+            } else {
+              menuItems.push(result.data);
+            }
+          } else {
+            await loadData();
+          }
+          renderTable();
         } catch (err) {
-          showToast(err.message, 'error');
+          showToast(err.message || 'Save failed', 'error');
         }
       }
     });
@@ -259,9 +348,10 @@
       try {
         await apiDelete(`/menu/${id}`);
         showToast('Menu item deleted successfully');
-        loadData();
+        menuItems = menuItems.filter(i => i._id !== id);
+        renderTable();
       } catch (err) {
-        showToast(err.message, 'error');
+        showToast(err.message || 'Delete failed', 'error');
       }
     }
 

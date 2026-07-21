@@ -1,10 +1,11 @@
 import About from '../models/About.js';
 import AppError from '../utils/AppError.js';
 import catchAsync from '../utils/catchAsync.js';
-import { deleteImage } from '../services/imageService.js';
+import { deleteImage, uploadToCloudinary, isLocalUpload } from '../services/imageService.js';
+import fs from 'fs';
 
 export const getAbout = catchAsync(async (req, res, next) => {
-  const about = await About.findOne();
+  const about = await About.findOne().lean();
   if (!about) {
     return next(new AppError('About section not found', 404));
   }
@@ -32,10 +33,23 @@ export const updateAbout = catchAsync(async (req, res, next) => {
   });
 
   if (req.file) {
-    if (about.chefImage && about.chefImage.startsWith('/uploads/')) {
+    if (about.chefImage && isLocalUpload(about.chefImage)) {
       deleteImage(about.chefImage);
     }
-    about.chefImage = `/uploads/${req.file.filename}`;
+    let imageUrl = `/uploads/${req.file.filename}`;
+    if (process.env.CLOUDINARY_CLOUD_NAME) {
+      const cloudUrl = await uploadToCloudinary(req.file.path);
+      if (cloudUrl) {
+        imageUrl = cloudUrl;
+        fs.unlinkSync(req.file.path);
+      }
+    }
+    about.chefImage = imageUrl;
+  } else if (req.body.removeImage === 'true') {
+    if (about.chefImage && isLocalUpload(about.chefImage)) {
+      deleteImage(about.chefImage);
+    }
+    about.chefImage = '/uploads/chef.jpg';
   }
 
   await about.save();

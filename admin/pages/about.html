@@ -7,6 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/admin.css" />
+  <style>
+    .img-preview { max-width: 200px; max-height: 150px; border-radius: 8px; object-fit: cover; border: 2px solid rgba(201,169,110,0.3); }
+    .img-preview-container { position: relative; display: inline-block; }
+    .img-preview-remove { position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+    .img-preview-remove:hover { background: #dc2626; }
+  </style>
 </head>
 <body class="bg-[#0b0a0a] text-[#f0ece4] min-h-screen flex">
   <aside class="w-64 bg-[#111] border-r border-white/10 flex flex-col fixed h-full z-30">
@@ -15,18 +21,18 @@
       <p class="text-white/40 text-xs mt-1">Admin Panel</p>
     </div>
     <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
-      <a href="../dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📊</span> Dashboard</a>
-      <a href="hero.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🖼️</span> Hero Section</a>
-      <a href="about.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm"><span>📖</span> About</a>
-      <a href="categories.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📂</span> Categories</a>
-      <a href="menu.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🍽️</span> Menu Items</a>
-      <a href="gallery.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>🖼️</span> Gallery</a>
-      <a href="testimonials.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>💬</span> Testimonials</a>
-      <a href="contact.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>📞</span> Contact</a>
-      <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>⚙️</span> Settings</a>
+      <a href="../dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F4CA;</span> Dashboard</a>
+      <a href="hero.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F5BC;</span> Hero Section</a>
+      <a href="about.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm"><span>&#x1F4D6;</span> About</a>
+      <a href="categories.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F4C2;</span> Categories</a>
+      <a href="menu.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F37D;</span> Menu Items</a>
+      <a href="gallery.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F5BC;</span> Gallery</a>
+      <a href="testimonials.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F4AC;</span> Testimonials</a>
+      <a href="contact.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x1F4DE;</span> Contact</a>
+      <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm"><span>&#x2699;</span> Settings</a>
     </nav>
     <div class="p-4 border-t border-white/10">
-      <button id="logoutBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/50 hover:bg-red-500/10 hover:text-red-400 transition text-sm"><span>🚪</span> Logout</button>
+      <button id="logoutBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/50 hover:bg-red-500/10 hover:text-red-400 transition text-sm"><span>&#x1F6AA;</span> Logout</button>
     </div>
   </aside>
 
@@ -36,7 +42,7 @@
         <h2 class="text-2xl font-semibold">About Section</h2>
         <p class="text-white/40 text-sm mt-1">Manage the about section content</p>
       </div>
-      <a href="../dashboard.html" class="text-sm text-white/50 hover:text-white transition">← Back to Dashboard</a>
+      <a href="../dashboard.html" class="text-sm text-white/50 hover:text-white transition">&larr; Back to Dashboard</a>
     </div>
 
     <div class="glass rounded-xl p-6 max-w-2xl">
@@ -57,6 +63,13 @@
           <label class="block text-sm text-white/60 mb-1">Or Upload Chef Image File</label>
           <input type="file" id="chefImageFile" accept="image/*" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-600 transition" />
         </div>
+        <div id="imagePreviewContainer" class="hidden">
+          <label class="block text-sm text-white/60 mb-1">Image Preview</label>
+          <div class="img-preview-container inline-block">
+            <img id="imagePreview" src="" alt="Preview" class="img-preview" />
+            <button type="button" id="removeImageBtn" class="img-preview-remove" title="Remove image">&times;</button>
+          </div>
+        </div>
         <div>
           <label class="block text-sm text-white/60 mb-1">Experience</label>
           <input type="text" id="experience" placeholder="12+ years" />
@@ -65,6 +78,7 @@
           <label class="block text-sm text-white/60 mb-1">Features (one per line)</label>
           <textarea id="features" rows="3" placeholder="100% farm-to-table&#10;Michelin-starred service"></textarea>
         </div>
+        <input type="hidden" id="removeImageFlag" value="false" />
         <button type="submit" class="btn-gold px-6 py-3 rounded-lg text-sm uppercase tracking-wider">Save Changes</button>
       </form>
     </div>
@@ -82,15 +96,57 @@
         document.getElementById('chefImage').value = data.chefImage || '';
         document.getElementById('experience').value = data.experience || '';
         document.getElementById('features').value = (data.features || []).join('\n');
+        if (data.chefImage) {
+          showImagePreview(data.chefImage);
+        }
       }
     }
+
+    function showImagePreview(url) {
+      const container = document.getElementById('imagePreviewContainer');
+      const preview = document.getElementById('imagePreview');
+      if (url) {
+        preview.src = getCacheBustedUrl(url);
+        container.classList.remove('hidden');
+      } else {
+        container.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('chefImageFile').addEventListener('change', function() {
+      if (this.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function(e) { showImagePreview(e.target.result); };
+        reader.readAsDataURL(this.files[0]);
+        document.getElementById('chefImage').value = '';
+      }
+    });
+
+    document.getElementById('chefImage').addEventListener('input', function() {
+      if (this.value) {
+        showImagePreview(this.value);
+        document.getElementById('chefImageFile').value = '';
+      } else {
+        document.getElementById('imagePreviewContainer').classList.add('hidden');
+      }
+    });
+
+    document.getElementById('removeImageBtn').addEventListener('click', function() {
+      document.getElementById('removeImageFlag').value = 'true';
+      document.getElementById('imagePreviewContainer').classList.add('hidden');
+      document.getElementById('chefImage').value = '';
+      document.getElementById('chefImageFile').value = '';
+      showToast('Image marked for removal', 'info');
+    });
 
     document.getElementById('aboutForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const fileInput = document.getElementById('chefImageFile');
       const features = document.getElementById('features').value.split('\n').filter(f => f.trim());
+      const removeFlag = document.getElementById('removeImageFlag').value;
 
       if (fileInput.files.length > 0) {
+        showToast('Uploading image...', 'info');
         const formData = new FormData();
         formData.append('chefImage', fileInput.files[0]);
         formData.append('heading', document.getElementById('heading').value);
@@ -101,24 +157,32 @@
         try {
           await apiUpload('/about', formData, 'PUT');
           showToast('About section updated successfully');
+          document.getElementById('removeImageFlag').value = 'false';
           loadAbout();
-          fileInput.value = '';
         } catch (err) {
-          showToast(err.message, 'error');
+          showToast(err.message || 'Upload failed', 'error');
         }
       } else {
+        const body = {
+          heading: document.getElementById('heading').value,
+          description: document.getElementById('description').value,
+          chefImage: document.getElementById('chefImage').value || undefined,
+          experience: document.getElementById('experience').value,
+          features: features
+        };
+
+        if (removeFlag === 'true') {
+          body.removeImage = 'true';
+          body.chefImage = '';
+        }
+
         try {
-          await apiPut('/about', {
-            heading: document.getElementById('heading').value,
-            description: document.getElementById('description').value,
-            chefImage: document.getElementById('chefImage').value,
-            experience: document.getElementById('experience').value,
-            features: features
-          });
+          await apiPut('/about', body);
           showToast('About section updated successfully');
+          document.getElementById('removeImageFlag').value = 'false';
           loadAbout();
         } catch (err) {
-          showToast(err.message, 'error');
+          showToast(err.message || 'Save failed', 'error');
         }
       }
     });

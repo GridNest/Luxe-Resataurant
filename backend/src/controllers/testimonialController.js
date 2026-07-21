@@ -3,7 +3,7 @@ import AppError from '../utils/AppError.js';
 import catchAsync from '../utils/catchAsync.js';
 
 export const getTestimonials = catchAsync(async (req, res, next) => {
-  const testimonials = await Testimonial.find().sort('displayOrder');
+  const testimonials = await Testimonial.find().sort('displayOrder').lean();
   res.status(200).json({ success: true, data: testimonials });
 });
 

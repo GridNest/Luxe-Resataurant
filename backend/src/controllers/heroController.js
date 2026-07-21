@@ -1,10 +1,11 @@
 import Hero from '../models/Hero.js';
 import AppError from '../utils/AppError.js';
 import catchAsync from '../utils/catchAsync.js';
-import { deleteImage } from '../services/imageService.js';
+import { deleteImage, uploadToCloudinary, isLocalUpload } from '../services/imageService.js';
+import fs from 'fs';
 
 export const getHero = catchAsync(async (req, res, next) => {
-  const hero = await Hero.findOne();
+  const hero = await Hero.findOne().lean();
   if (!hero) {
     return next(new AppError('Hero section not found', 404));
   }
@@ -24,10 +25,23 @@ export const updateHero = catchAsync(async (req, res, next) => {
   });
 
   if (req.file) {
-    if (hero.backgroundImage && hero.backgroundImage.startsWith('/uploads/')) {
+    if (hero.backgroundImage && isLocalUpload(hero.backgroundImage)) {
       deleteImage(hero.backgroundImage);
     }
-    hero.backgroundImage = `/uploads/${req.file.filename}`;
+    let imageUrl = `/uploads/${req.file.filename}`;
+    if (process.env.CLOUDINARY_CLOUD_NAME) {
+      const cloudUrl = await uploadToCloudinary(req.file.path);
+      if (cloudUrl) {
+        imageUrl = cloudUrl;
+        fs.unlinkSync(req.file.path);
+      }
+    }
+    hero.backgroundImage = imageUrl;
+  } else if (req.body.removeImage === 'true') {
+    if (hero.backgroundImage && isLocalUpload(hero.backgroundImage)) {
+      deleteImage(hero.backgroundImage);
+    }
+    hero.backgroundImage = '/uploads/hero-bg.jpg';
   }
 
   await hero.save();

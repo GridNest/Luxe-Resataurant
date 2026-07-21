@@ -146,6 +146,8 @@ tr:hover td {
   font-size: 0.875rem;
   z-index: 100;
   animation: slideIn 0.3s ease;
+  transition: opacity 0.3s, transform 0.3s;
+  max-width: 350px;
 }
 
 .toast-success {
@@ -155,6 +157,11 @@ tr:hover td {
 
 .toast-error {
   background: rgba(239, 68, 68, 0.9);
+  color: #fff;
+}
+
+.toast-info {
+  background: rgba(59, 130, 246, 0.9);
   color: #fff;
 }
 

@@ -17,90 +17,87 @@
       <p class="text-white/40 text-xs mt-1">Admin Panel</p>
     </div>
     <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
-      <a href="dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm" data-page="dashboard">
-        <span>📊</span> Dashboard
+      <a href="dashboard.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm" data-page="dashboard">
+        <span>&#x1F4CA;</span> Dashboard
       </a>
       <a href="pages/hero.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm" data-page="hero">
-        <span>🖼️</span> Hero Section
+        <span>&#x1F5BC;</span> Hero Section
       </a>
       <a href="pages/about.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm" data-page="about">
-        <span>📖</span> About
+        <span>&#x1F4D6;</span> About
       </a>
       <a href="pages/categories.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm" data-page="categories">
-        <span>📂</span> Categories
+        <span>&#x1F4C2;</span> Categories
       </a>
       <a href="pages/menu.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm" data-page="menu">
-        <span>🍽️</span> Menu Items
+        <span>&#x1F37D;</span> Menu Items
       </a>
       <a href="pages/gallery.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm" data-page="gallery">
-        <span>🖼️</span> Gallery
+        <span>&#x1F5BC;</span> Gallery
       </a>
       <a href="pages/testimonials.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm" data-page="testimonials">
-        <span>💬</span> Testimonials
+        <span>&#x1F4AC;</span> Testimonials
       </a>
       <a href="pages/contact.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm" data-page="contact">
-        <span>📞</span> Contact
+        <span>&#x1F4DE;</span> Contact
       </a>
       <a href="pages/settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition text-sm" data-page="settings">
-        <span>⚙️</span> Settings
+        <span>&#x2699;</span> Settings
       </a>
     </nav>
     <div class="p-4 border-t border-white/10">
       <button id="logoutBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/50 hover:bg-red-500/10 hover:text-red-400 transition text-sm">
-        <span>🚪</span> Logout
+        <span>&#x1F6AA;</span> Logout
       </button>
     </div>
   </aside>
 
   <!-- Main Content -->
   <main class="flex-1 ml-64 p-8">
-    <!-- Top Bar -->
     <div class="flex items-center justify-between mb-8">
       <div>
         <h2 class="text-2xl font-semibold">Dashboard</h2>
         <p class="text-white/40 text-sm mt-1">Welcome back, <span id="adminName">Admin</span></p>
       </div>
-      <a href="../index.html" target="_blank" class="text-sm text-white/50 hover:text-white transition">View Website ↗</a>
+      <a href="../index.html" target="_blank" class="text-sm text-white/50 hover:text-white transition">View Website &#8599;</a>
     </div>
 
-    <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <div class="glass rounded-xl p-6">
         <p class="text-white/40 text-sm">Menu Items</p>
-        <p class="text-3xl font-bold gold mt-2" id="statMenu">0</p>
+        <p class="text-3xl font-bold gold mt-2" id="statMenu">-</p>
       </div>
       <div class="glass rounded-xl p-6">
         <p class="text-white/40 text-sm">Categories</p>
-        <p class="text-3xl font-bold gold mt-2" id="statCategories">0</p>
+        <p class="text-3xl font-bold gold mt-2" id="statCategories">-</p>
       </div>
       <div class="glass rounded-xl p-6">
         <p class="text-white/40 text-sm">Gallery Images</p>
-        <p class="text-3xl font-bold gold mt-2" id="statGallery">0</p>
+        <p class="text-3xl font-bold gold mt-2" id="statGallery">-</p>
       </div>
       <div class="glass rounded-xl p-6">
         <p class="text-white/40 text-sm">Testimonials</p>
-        <p class="text-3xl font-bold gold mt-2" id="statTestimonials">0</p>
+        <p class="text-3xl font-bold gold mt-2" id="statTestimonials">-</p>
       </div>
     </div>
 
-    <!-- Quick Actions -->
     <div class="glass rounded-xl p-6">
       <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <a href="pages/menu.html" class="bg-white/5 hover:bg-white/10 rounded-lg p-4 text-center transition">
-          <span class="text-2xl">🍽️</span>
+          <span class="text-2xl">&#x1F37D;</span>
           <p class="text-sm mt-2">Add Menu Item</p>
         </a>
         <a href="pages/gallery.html" class="bg-white/5 hover:bg-white/10 rounded-lg p-4 text-center transition">
-          <span class="text-2xl">🖼️</span>
+          <span class="text-2xl">&#x1F5BC;</span>
           <p class="text-sm mt-2">Add Gallery Image</p>
         </a>
         <a href="pages/testimonials.html" class="bg-white/5 hover:bg-white/10 rounded-lg p-4 text-center transition">
-          <span class="text-2xl">💬</span>
+          <span class="text-2xl">&#x1F4AC;</span>
           <p class="text-sm mt-2">Add Testimonial</p>
         </a>
         <a href="pages/categories.html" class="bg-white/5 hover:bg-white/10 rounded-lg p-4 text-center transition">
-          <span class="text-2xl">📂</span>
+          <span class="text-2xl">&#x1F4C2;</span>
           <p class="text-sm mt-2">Add Category</p>
         </a>
       </div>

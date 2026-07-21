@@ -3,12 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LUXE · Restaurant</title>
+  <title>LUXE &middot; Restaurant</title>
+  <link rel="preconnect" href="https://luxe-restaurant-backend.onrender.com" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="dns-prefetch" href="https://luxe-restaurant-backend.onrender.com" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .img-loading { opacity: 0; transition: opacity 0.4s ease; }
+    .img-loaded { opacity: 1; }
+  </style>
 </head>
 <body>
 
@@ -16,7 +23,7 @@
   <div id="scrollProgress" class="scroll-progress"></div>
 
   <!-- Back to Top -->
-  <button id="backTop" class="back-top">↑ Top</button>
+  <button id="backTop" class="back-top">&#8593; Top</button>
 
   <div id="root">
     <div id="app" class="relative">
@@ -32,12 +39,12 @@
           <a href="#testimonials" class="nav-link text-white/80 hover:text-gold transition">Testimonials</a>
           <a href="#contact" class="nav-link text-white/80 hover:text-gold transition">Contact</a>
         </div>
-        <button id="hamburger" class="md:hidden text-white text-2xl">☰</button>
+        <button id="hamburger" class="md:hidden text-white text-2xl">&#9776;</button>
       </nav>
 
       <!-- Mobile Menu -->
       <div id="mobileMenu" class="fixed top-0 left-0 w-full h-screen bg-black/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-6 text-2xl transition-transform duration-500 -translate-y-full">
-        <button id="closeMenu" class="absolute top-6 right-8 text-3xl text-white/70">✕</button>
+        <button id="closeMenu" class="absolute top-6 right-8 text-3xl text-white/70">&#10005;</button>
         <a href="#home" class="nav-link text-white/80 hover:text-gold">Home</a>
         <a href="#menu" class="nav-link text-white/80 hover:text-gold">Menu</a>
         <a href="#gallery" class="nav-link text-white/80 hover:text-gold">Gallery</a>
@@ -52,7 +59,7 @@
         <div class="relative z-10 max-w-4xl text-center space-y-6">
           <h1 class="text-5xl md:text-7xl font-light tracking-widest gold">LUXE</h1>
           <p class="text-3xl md:text-5xl font-light text-white/90">Culinary Artistry</p>
-          <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto">Where tradition meets innovation — a Michelin-inspired journey.</p>
+          <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto">Where tradition meets innovation &mdash; a Michelin-inspired journey.</p>
           <div class="flex flex-wrap justify-center gap-4 pt-6">
             <a href="#menu" class="btn-gold px-8 py-3 rounded-full text-sm uppercase tracking-wider">Explore Menu</a>
           </div>
@@ -63,7 +70,7 @@
       <section id="menu" class="py-20 px-6 md:px-12 bg-[#0f0d0d]">
         <div class="max-w-7xl mx-auto">
           <h2 class="text-4xl md:text-5xl font-light text-center gold mb-4">Our Menu</h2>
-          <p class="text-center text-white/60 mb-12">— crafted with passion —</p>
+          <p class="text-center text-white/60 mb-12">&mdash; crafted with passion &mdash;</p>
           <div id="categoryTabs" class="flex flex-wrap justify-center gap-3 md:gap-6 mb-12 text-sm uppercase tracking-wider"></div>
           <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
@@ -83,7 +90,7 @@
             </div>
           </div>
           <div class="rounded-2xl overflow-hidden shadow-2xl">
-            <img id="aboutChefImg" src="" alt="Chef" class="w-full h-auto object-cover" />
+            <img id="aboutChefImg" src="" alt="Chef" class="w-full h-auto object-cover img-loading" />
           </div>
         </div>
       </section>
@@ -110,10 +117,10 @@
           <div>
             <h2 class="text-4xl font-light gold mb-6">Contact</h2>
             <div class="space-y-4 text-white/70">
-              <p><span class="gold">📞</span> <span id="contactPhone"></span></p>
-              <p><span class="gold">✉️</span> <span id="contactEmail"></span></p>
-              <p><span class="gold">📍</span> <span id="contactAddress"></span></p>
-              <p><span class="gold">🕰️</span> <span id="contactHours"></span></p>
+              <p><span class="gold">&#x1F4DE;</span> <span id="contactPhone"></span></p>
+              <p><span class="gold">&#x2709;&#xFE0F;</span> <span id="contactEmail"></span></p>
+              <p><span class="gold">&#x1F4CD;</span> <span id="contactAddress"></span></p>
+              <p><span class="gold">&#x1F550;</span> <span id="contactHours"></span></p>
             </div>
           </div>
           <div class="h-64 md:h-auto rounded-xl overflow-hidden shadow-xl">
