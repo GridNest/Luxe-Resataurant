@@ -36,9 +36,99 @@
     return url + sep + "t=" + Date.now();
   }
 
+  const FALLBACK_CATEGORIES = [
+    { _id: "cat_starters", name: "Starters", slug: "starters" },
+    { _id: "cat_mains", name: "Main Courses", slug: "main-courses" },
+    { _id: "cat_desserts", name: "Desserts", slug: "desserts" },
+    { _id: "cat_drinks", name: "Beverages", slug: "beverages" }
+  ];
+
+  const FALLBACK_MENU = [
+    {
+      _id: "m1",
+      name: "Truffle Infused Risotto",
+      price: 34,
+      description: "Arborio rice, wild forest mushrooms, 24-month Aged Parmigiano-Reggiano, black truffle emulsion.",
+      veg: true,
+      popular: true,
+      image: "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=600&q=80",
+      categoryId: { _id: "cat_starters", slug: "starters" }
+    },
+    {
+      _id: "m2",
+      name: "Wagyu Beef Tenderloin",
+      price: 68,
+      description: "A5 Japanese Wagyu, roasted bone marrow jus, smoked potato purée, charred shallots.",
+      veg: false,
+      popular: true,
+      image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
+      categoryId: { _id: "cat_mains", slug: "main-courses" }
+    },
+    {
+      _id: "m3",
+      name: "Pan-Seared Chilean Sea Bass",
+      price: 52,
+      description: "Saffron lemongrass broth, baby bok choy, heirloom cherry tomatoes, micro basil.",
+      veg: false,
+      popular: false,
+      image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80",
+      categoryId: { _id: "cat_mains", slug: "main-courses" }
+    },
+    {
+      _id: "m4",
+      name: "Golden Chocolate Sphere",
+      price: 24,
+      description: "Valrhona dark chocolate, salted caramel center, hazelnut praline, warm espresso ganache.",
+      veg: true,
+      popular: true,
+      image: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?w=600&q=80",
+      categoryId: { _id: "cat_desserts", slug: "desserts" }
+    },
+    {
+      _id: "m5",
+      name: "Smoked Botanical Elixir",
+      price: 18,
+      description: "Artisanal gin alternative, rosemary infusion, elderflower tonic, clarified citrus.",
+      veg: true,
+      popular: false,
+      image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=80",
+      categoryId: { _id: "cat_drinks", slug: "beverages" }
+    }
+  ];
+
+  const FALLBACK_ABOUT = {
+    description: "Founded with a vision for culinary excellence, LUXE blends timeless traditions with modern gastronomy. Every dish is a curated masterpiece using seasonal, sustainably sourced ingredients from boutique artisanal farms.",
+    chefImage: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80",
+    experience: "15+",
+    features: ["100% Organic", "Michelin Guide Rated"]
+  };
+
+  const FALLBACK_GALLERY = [
+    { _id: "g1", title: "Ambiance", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" },
+    { _id: "g2", title: "Plating", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" },
+    { _id: "g3", title: "Wine Cellar", image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" },
+    { _id: "g4", title: "Chef at Work", image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80" },
+    { _id: "g5", title: "Private Dining", image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&q=80" },
+    { _id: "g6", title: "Signature Dish", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" }
+  ];
+
+  const FALLBACK_TESTIMONIALS = [
+    { _id: "t1", customerName: "Eleanor Vance", rating: 5, review: "An unforgettable dining journey. The truffle risotto and wine pairings were beyond divine." },
+    { _id: "t2", customerName: "Marcus Sterling", rating: 5, review: "Impeccable service and sophisticated atmosphere. Truly deserving of top Michelin honors." },
+    { _id: "t3", customerName: "Sophia Chen", rating: 5, review: "From the appetizers to the golden chocolate sphere, every bite was culinary magic." }
+  ];
+
+  const FALLBACK_CONTACT = {
+    phone: "+1 (555) 234-5678",
+    email: "reservations@luxerestaurant.com",
+    address: "742 Evergreen Terrace, New York, NY 10001",
+    openingHours: "Mon - Sun: 5:00 PM - 11:00 PM",
+    googleMap: "https://maps.google.com/maps?q=New%20York&t=&z=13&ie=UTF8&iwloc=&output=embed"
+  };
+
   async function loadData() {
     var controller = new AbortController();
-    var timeoutId = setTimeout(function () { controller.abort(); }, 45000);
+    var timeoutId = setTimeout(function () { controller.abort(); }, 12000);
 
     try {
       var results = await Promise.all([
@@ -191,12 +281,15 @@
   function renderMenu(categories, menuItems) {
     var categoryTabs = document.getElementById("categoryTabs");
     var menuGrid = document.getElementById("menuGrid");
-    if (!categoryTabs || !menuGrid || !categories || !categories.length) return;
+    if (!categoryTabs || !menuGrid) return;
 
-    var activeCategory = categories[0] ? categories[0].slug : "starter";
+    var cats = (categories && categories.length) ? categories : FALLBACK_CATEGORIES;
+    var itemsList = (menuItems && menuItems.length) ? menuItems : FALLBACK_MENU;
+
+    var activeCategory = cats[0] ? cats[0].slug : "starters";
 
     function renderTabs() {
-      categoryTabs.innerHTML = categories
+      categoryTabs.innerHTML = cats
         .map(function (cat) {
           return '<button class="tab-btn px-4 py-2 text-sm uppercase tracking-wider ' +
             (cat.slug === activeCategory ? "tab-active" : "text-white/60") +
@@ -220,11 +313,11 @@
     }
 
     function renderMenuItems(categorySlug) {
-      var cat = categories.find(function (c) { return c.slug === categorySlug; });
+      var cat = cats.find(function (c) { return c.slug === categorySlug; });
       if (!cat) return;
 
-      var items = (menuItems || []).filter(function (item) {
-        return item.categoryId && item.categoryId._id === cat._id;
+      var items = itemsList.filter(function (item) {
+        return item.categoryId && (item.categoryId._id === cat._id || item.categoryId.slug === cat.slug);
       });
 
       if (!items.length) {
@@ -259,33 +352,34 @@
   }
 
   function renderAbout(aboutData) {
-    if (!aboutData) return;
+    var data = aboutData || FALLBACK_ABOUT;
     var story = document.getElementById("aboutStory");
     var img = document.getElementById("aboutChefImg");
     var exp = document.getElementById("aboutExp");
     var fresh = document.getElementById("aboutFresh");
     var lux = document.getElementById("aboutLux");
 
-    if (story) story.textContent = aboutData.description;
+    if (story) story.textContent = data.description;
     if (img) {
       img.onerror = function () {
         this.onerror = null;
         this.src = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500"><rect fill="#1a1818" width="400" height="500"/><text fill="#666" font-size="14" x="200" y="250" text-anchor="middle">Chef Image</text></svg>');
         this.style.opacity = "1";
       };
-      img.src = getFullImageUrl(aboutData.chefImage);
+      img.src = getFullImageUrl(data.chefImage);
       img.style.opacity = "1";
     }
-    if (exp) exp.textContent = aboutData.experience || "12+";
-    if (fresh) fresh.textContent = aboutData.features && aboutData.features[0] ? aboutData.features[0] : "100%";
+    if (exp) exp.textContent = data.experience || "12+";
+    if (fresh) fresh.textContent = data.features && data.features[0] ? data.features[0] : "100%";
     if (lux) lux.textContent = "\u2605";
   }
 
   function renderGallery(galleryData) {
     var container = document.getElementById("galleryMasonry");
-    if (!container || !galleryData) return;
+    if (!container) return;
+    var list = (galleryData && galleryData.length) ? galleryData : FALLBACK_GALLERY;
 
-    container.innerHTML = galleryData
+    container.innerHTML = list
       .map(function (item) {
         var imgSrc = getFullImageUrl(item.image);
         return '<figure class="masonry break-inside-avoid rounded-xl overflow-hidden shadow-lg cursor-pointer relative group">' +
@@ -315,9 +409,10 @@
 
   function renderTestimonials(testimonialsData) {
     var container = document.getElementById("testimonialCards");
-    if (!container || !testimonialsData) return;
+    if (!container) return;
+    var list = (testimonialsData && testimonialsData.length) ? testimonialsData : FALLBACK_TESTIMONIALS;
 
-    container.innerHTML = testimonialsData
+    container.innerHTML = list
       .map(function (t) {
         var stars = "";
         for (var i = 0; i < 5; i++) {
@@ -333,18 +428,18 @@
   }
 
   function renderContact(contactData) {
-    if (!contactData) return;
+    var data = contactData || FALLBACK_CONTACT;
     var phone = document.getElementById("contactPhone");
     var email = document.getElementById("contactEmail");
     var address = document.getElementById("contactAddress");
     var hours = document.getElementById("contactHours");
     var map = document.getElementById("mapFrame");
 
-    if (phone) phone.textContent = contactData.phone;
-    if (email) email.textContent = contactData.email;
-    if (address) address.textContent = contactData.address;
-    if (hours) hours.textContent = contactData.openingHours;
-    if (map && contactData.googleMap) map.src = contactData.googleMap;
+    if (phone) phone.textContent = data.phone;
+    if (email) email.textContent = data.email;
+    if (address) address.textContent = data.address;
+    if (hours) hours.textContent = data.openingHours;
+    if (map && data.googleMap) map.src = data.googleMap;
   }
 
   function initReveal() {
