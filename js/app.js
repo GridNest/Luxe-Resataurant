@@ -30,6 +30,18 @@
     return BACKEND_URL + cleanUrl;
   }
 
+  function optimizeImageUrl(url) {
+    if (!url) return "";
+    var fullUrl = getFullImageUrl(url);
+    if (fullUrl.indexOf("unsplash.com") !== -1) {
+      if (fullUrl.indexOf("auto=format") === -1) {
+        var sep = fullUrl.indexOf("?") !== -1 ? "&" : "?";
+        return fullUrl + sep + "auto=format&fit=crop&q=75";
+      }
+    }
+    return fullUrl;
+  }
+
   function cacheBust(url) {
     if (!url || url.startsWith("data:") || url.indexOf("unsplash") !== -1) return url;
     var sep = url.indexOf("?") !== -1 ? "&" : "?";
@@ -51,7 +63,7 @@
       description: "Arborio rice, wild forest mushrooms, 24-month Aged Parmigiano-Reggiano, black truffle emulsion.",
       veg: true,
       popular: true,
-      image: "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=600&q=80",
+      image: "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=600&q=75&auto=format",
       categoryId: { _id: "cat_starters", slug: "starters" }
     },
     {
@@ -61,7 +73,7 @@
       description: "A5 Japanese Wagyu, roasted bone marrow jus, smoked potato purée, charred shallots.",
       veg: false,
       popular: true,
-      image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
+      image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=75&auto=format",
       categoryId: { _id: "cat_mains", slug: "main-courses" }
     },
     {
@@ -71,7 +83,7 @@
       description: "Saffron lemongrass broth, baby bok choy, heirloom cherry tomatoes, micro basil.",
       veg: false,
       popular: false,
-      image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80",
+      image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=75&auto=format",
       categoryId: { _id: "cat_mains", slug: "main-courses" }
     },
     {
@@ -81,7 +93,7 @@
       description: "Valrhona dark chocolate, salted caramel center, hazelnut praline, warm espresso ganache.",
       veg: true,
       popular: true,
-      image: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?w=600&q=80",
+      image: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?w=600&q=75&auto=format",
       categoryId: { _id: "cat_desserts", slug: "desserts" }
     },
     {
@@ -91,25 +103,25 @@
       description: "Artisanal gin alternative, rosemary infusion, elderflower tonic, clarified citrus.",
       veg: true,
       popular: false,
-      image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=80",
+      image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=75&auto=format",
       categoryId: { _id: "cat_drinks", slug: "beverages" }
     }
   ];
 
   const FALLBACK_ABOUT = {
     description: "Founded with a vision for culinary excellence, LUXE blends timeless traditions with modern gastronomy. Every dish is a curated masterpiece using seasonal, sustainably sourced ingredients from boutique artisanal farms.",
-    chefImage: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80",
+    chefImage: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=75&auto=format",
     experience: "15+",
     features: ["100% Organic", "Michelin Guide Rated"]
   };
 
   const FALLBACK_GALLERY = [
-    { _id: "g1", title: "Ambiance", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" },
-    { _id: "g2", title: "Plating", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" },
-    { _id: "g3", title: "Wine Cellar", image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" },
-    { _id: "g4", title: "Chef at Work", image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80" },
-    { _id: "g5", title: "Private Dining", image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&q=80" },
-    { _id: "g6", title: "Signature Dish", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" }
+    { _id: "g1", title: "Ambiance", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=75&auto=format" },
+    { _id: "g2", title: "Plating", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=75&auto=format" },
+    { _id: "g3", title: "Wine Cellar", image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=75&auto=format" },
+    { _id: "g4", title: "Chef at Work", image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&q=75&auto=format" },
+    { _id: "g5", title: "Private Dining", image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=600&q=75&auto=format" },
+    { _id: "g6", title: "Signature Dish", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=75&auto=format" }
   ];
 
   const FALLBACK_TESTIMONIALS = [
@@ -128,7 +140,7 @@
 
   async function loadData() {
     var controller = new AbortController();
-    var timeoutId = setTimeout(function () { controller.abort(); }, 12000);
+    var timeoutId = setTimeout(function () { controller.abort(); }, 15000);
 
     try {
       var results = await Promise.all([
@@ -149,93 +161,8 @@
       };
     } catch (err) {
       clearTimeout(timeoutId);
-      return { hero: null, about: null, categories: null, menuItems: null, gallery: null, testimonials: null, contact: null, settings: null };
+      return null;
     }
-  }
-
-  function showSkeletons() {
-    var menuGrid = document.getElementById("menuGrid");
-    if (menuGrid) {
-      menuGrid.innerHTML = "";
-      for (var i = 0; i < 6; i++) {
-        var card = document.createElement("div");
-        card.className = "skeleton-card";
-        card.innerHTML = '<div class="skeleton skeleton-img"></div><div style="padding:16px">' +
-          '<div class="skeleton skeleton-text" style="width:70%"></div>' +
-          '<div class="skeleton skeleton-text" style="width:40%"></div>' +
-          '<div class="skeleton skeleton-text" style="width:90%"></div></div>';
-        menuGrid.appendChild(card);
-      }
-    }
-
-    var galleryMasonry = document.getElementById("galleryMasonry");
-    if (galleryMasonry) {
-      galleryMasonry.innerHTML = "";
-      for (var j = 0; j < 6; j++) {
-        var skel = document.createElement("div");
-        skel.className = "skeleton skeleton-img";
-        skel.style.height = "250px";
-        skel.style.marginBottom = "16px";
-        galleryMasonry.appendChild(skel);
-      }
-    }
-
-    var testimonialCards = document.getElementById("testimonialCards");
-    if (testimonialCards) {
-      testimonialCards.innerHTML = "";
-      for (var k = 0; k < 3; k++) {
-        var tcard = document.createElement("div");
-        tcard.className = "skeleton-card";
-        tcard.style.padding = "24px";
-        tcard.innerHTML = '<div class="skeleton skeleton-text" style="width:30%;margin-bottom:12px"></div>' +
-          '<div class="skeleton skeleton-text" style="width:100%"></div>' +
-          '<div class="skeleton skeleton-text" style="width:80%"></div>' +
-          '<div class="skeleton skeleton-text" style="width:40%;margin-top:16px"></div>';
-        testimonialCards.appendChild(tcard);
-      }
-    }
-  }
-
-  function initScrollProgress() {
-    window.addEventListener("scroll", function () {
-      var scrollTop = window.scrollY;
-      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      var bar = document.getElementById("scrollProgress");
-      if (bar) bar.style.width = progress + "%";
-
-      var btn = document.getElementById("backTop");
-      if (btn) {
-        if (scrollTop > 400) btn.classList.add("visible");
-        else btn.classList.remove("visible");
-      }
-    });
-
-    var backBtn = document.getElementById("backTop");
-    if (backBtn) {
-      backBtn.addEventListener("click", function () {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    }
-  }
-
-  function initMobileMenu() {
-    var hamburger = document.getElementById("hamburger");
-    var mobileMenu = document.getElementById("mobileMenu");
-    var closeMenu = document.getElementById("closeMenu");
-
-    if (!hamburger || !mobileMenu) return;
-
-    function toggleMenu(open) {
-      mobileMenu.style.transform = open ? "translateY(0)" : "translateY(-100%)";
-    }
-
-    hamburger.addEventListener("click", function () { toggleMenu(true); });
-    if (closeMenu) closeMenu.addEventListener("click", function () { toggleMenu(false); });
-
-    mobileMenu.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () { toggleMenu(false); });
-    });
   }
 
   function renderHero(heroData) {
@@ -265,13 +192,13 @@
     if (heroData.backgroundImage) {
       var bgEl = document.querySelector("#home .absolute.inset-0");
       if (bgEl) {
-        var imgUrl = getFullImageUrl(heroData.backgroundImage);
+        var imgUrl = optimizeImageUrl(heroData.backgroundImage);
         var bgImg = new Image();
         bgImg.onload = function () {
           bgEl.style.backgroundImage = "url('" + imgUrl + "')";
         };
         bgImg.onerror = function () {
-          bgEl.style.backgroundImage = "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80')";
+          bgEl.style.backgroundImage = "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=75&auto=format')";
         };
         bgImg.src = imgUrl;
       }
@@ -327,7 +254,7 @@
 
       menuGrid.innerHTML = items
         .map(function (item) {
-          var imgSrc = getFullImageUrl(item.image);
+          var imgSrc = optimizeImageUrl(item.image);
           return '<div class="card-hover bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-gold/10 shadow-lg">' +
             '<div class="relative w-full h-48 overflow-hidden">' +
             '<img src="' + imgSrc + '" alt="' + item.name + '" loading="lazy" class="w-full h-48 object-cover" ' +
@@ -366,7 +293,7 @@
         this.src = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500"><rect fill="#1a1818" width="400" height="500"/><text fill="#666" font-size="14" x="200" y="250" text-anchor="middle">Chef Image</text></svg>');
         this.style.opacity = "1";
       };
-      img.src = getFullImageUrl(data.chefImage);
+      img.src = optimizeImageUrl(data.chefImage);
       img.style.opacity = "1";
     }
     if (exp) exp.textContent = data.experience || "12+";
@@ -381,7 +308,7 @@
 
     container.innerHTML = list
       .map(function (item) {
-        var imgSrc = getFullImageUrl(item.image);
+        var imgSrc = optimizeImageUrl(item.image);
         return '<figure class="masonry break-inside-avoid rounded-xl overflow-hidden shadow-lg cursor-pointer relative group">' +
           '<img src="' + imgSrc + '" loading="lazy" class="w-full h-auto object-cover transition" alt="' + (item.title || 'Gallery image') + '" ' +
           'onerror="this.onerror=null;this.src=\'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect fill="#1a1818" width="400" height="300"/><text fill="#666" font-size="14" x="200" y="150" text-anchor="middle">Image Not Available</text></svg>') + '\'" />' +
@@ -516,23 +443,97 @@
     }
   }
 
+  function initScrollProgress() {
+    window.addEventListener("scroll", function () {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      var bar = document.getElementById("scrollProgress");
+      if (bar) bar.style.width = progress + "%";
+
+      var btn = document.getElementById("backTop");
+      if (btn) {
+        if (scrollTop > 400) btn.classList.add("visible");
+        else btn.classList.remove("visible");
+      }
+    });
+
+    var backBtn = document.getElementById("backTop");
+    if (backBtn) {
+      backBtn.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+  }
+
+  function initMobileMenu() {
+    var hamburger = document.getElementById("hamburger");
+    var mobileMenu = document.getElementById("mobileMenu");
+    var closeMenu = document.getElementById("closeMenu");
+
+    if (!hamburger || !mobileMenu) return;
+
+    function toggleMenu(open) {
+      mobileMenu.style.transform = open ? "translateY(0)" : "translateY(-100%)";
+    }
+
+    hamburger.addEventListener("click", function () { toggleMenu(true); });
+    if (closeMenu) closeMenu.addEventListener("click", function () { toggleMenu(false); });
+
+    mobileMenu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () { toggleMenu(false); });
+    });
+  }
+
   async function init() {
     initScrollProgress();
     initMobileMenu();
-    showSkeletons();
-
-    var data = await loadData();
-
-    renderHero(data.hero);
-    renderMenu(data.categories, data.menuItems);
-    renderAbout(data.about);
-    renderGallery(data.gallery);
-    renderTestimonials(data.testimonials);
-    renderContact(data.contact);
-    renderSettings(data.settings);
-
     initReveal();
     initSmoothScroll();
+
+    // 1. Try reading cached data from localStorage
+    var cached = null;
+    try {
+      var saved = localStorage.getItem("luxe_cached_data");
+      if (saved) cached = JSON.parse(saved);
+    } catch (e) {}
+
+    // 2. Render INSTANTLY (0 ms latency) using cached data or fallback data
+    var initialData = cached || {
+      hero: null,
+      about: FALLBACK_ABOUT,
+      categories: FALLBACK_CATEGORIES,
+      menuItems: FALLBACK_MENU,
+      gallery: FALLBACK_GALLERY,
+      testimonials: FALLBACK_TESTIMONIALS,
+      contact: FALLBACK_CONTACT,
+      settings: null
+    };
+
+    renderHero(initialData.hero);
+    renderMenu(initialData.categories, initialData.menuItems);
+    renderAbout(initialData.about);
+    renderGallery(initialData.gallery);
+    renderTestimonials(initialData.testimonials);
+    renderContact(initialData.contact);
+    renderSettings(initialData.settings);
+
+    // 3. Asynchronously fetch fresh data in background (Stale-While-Revalidate pattern)
+    loadData().then(function (freshData) {
+      if (freshData && (freshData.menuItems || freshData.hero || freshData.gallery)) {
+        try {
+          localStorage.setItem("luxe_cached_data", JSON.stringify(freshData));
+        } catch (e) {}
+
+        if (freshData.hero) renderHero(freshData.hero);
+        if (freshData.categories || freshData.menuItems) renderMenu(freshData.categories, freshData.menuItems);
+        if (freshData.about) renderAbout(freshData.about);
+        if (freshData.gallery) renderGallery(freshData.gallery);
+        if (freshData.testimonials) renderTestimonials(freshData.testimonials);
+        if (freshData.contact) renderContact(freshData.contact);
+        if (freshData.settings) renderSettings(freshData.settings);
+      }
+    });
   }
 
   if (document.readyState === "loading") {
