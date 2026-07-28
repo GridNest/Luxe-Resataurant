@@ -20,6 +20,7 @@ import contactRoutes from './routes/contactRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
 
 import { errorHandler, notFound } from './middleware/errorHandler.js';
+import { checkDbConnection } from './middleware/dbCheck.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -101,6 +102,8 @@ app.use('/uploads', express.static(uploadsPath, {
     }
   }
 }));
+
+app.use('/api', checkDbConnection);
 
 app.use('/api', (req, res, next) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
